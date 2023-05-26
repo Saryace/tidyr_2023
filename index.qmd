@@ -33,8 +33,8 @@ En esta taller:
 
 ::: {.incremental}
 -   Repasaremos las principales herramientas de tidyr
--   Conceptos como pivot
--   Identificar los tipos de datos
+-   Revisaremos las funciones más usadas
+-   Revisar los principales cambios
 
 ::: 
 
@@ -57,114 +57,203 @@ El repositorio lo puedes encontrar acá:
 
 :::
 
-## Investiguemos que pasó
+## Funciones para ordenar datos `tidyr::` 
 
-Podemos acceder a documentación:
+* Objetivo: datos tidy rectangulares 
+* Cada variable forma su propia columna 
+* Cada observación forma una fila
+* Y cada celda es un único valor
 
+## Funciones para ordenar datos `tidyr::` 
+
+![tidy data](img/tidy_data.png)
+Más info en R4DS [tidy data](https://r4ds.had.co.nz/tidy-data.html)
+
+
+## Operaciones de tidyr
+
+Las funciones de tidyr se dividen en cinco categorías principales:
+
+* "Pivotar", que convierte entre formatos anchos y largos. 
+* "Rectangling", que convierte las listas anidadas en tibbles. 
+* "anidación" que convierte los datos donde cada grupo se convierte en una única fila que contiene un marco de datos anidado
+* Dividir y combinar columnas de caracteres
+* "missing implicitos"
+
+## Como usar el paquete
 ```{r}
 library(tidyverse)
+library(tidyr)
 #| eval: false
 help(mean) # ver documentación
 ```
 
 ![](img/documentacion_mean.png){fig-align="center"}
 
-## Qué aprendimos de esto?
+## Cosas nuevas de la versión 1.3
 
-::: box
+* Una nueva familia de funciones separate_*() sustituye a separate() y extract() e incorpora útiles funciones de debug
 
-Para comenzar con **estadística descriptiva** debemos <span class="fragment highlight-blue" fragment-index=1>conocer los datos</span> y al mismo tiempo <span class="fragment highlight-red" fragment-index=2>las funciones de R</span>. 
+* unnest_wider() y unnest_longer() son mejorados
+
+* pivot_longer() obtiene un nuevo argumento cols_vary.
+
+* nest(.by) proporciona una nueva (y esperemos que definitiva) forma de crear conjuntos de datos anidados.
+
+
+## Mejoras a separate_*()
+
+|   | Crea columnas  | Crea filas |
+|---|---|---|
+|Separa por delim | separate_wider_delim()  | separate_longer_delim() |
+|Separa por posición | separate_wider_position()   |separate_longer_position()|
+|Separa por regex  | separate_wider_regex() | |
+
+
+## Separate clásico
+```{r}
+library(tidyverse)
+info_nombres <- tibble(nombres = c("maria-jose", "ema-paz", "sofia-ester"))
+
+info_nombres %>% 
+  separate(nombres, into = c("primer_nombre", "segundo_nombre"), sep = "-")
+```
+
+## separate_*_delim()
+```{r}
+info_nombres %>% 
+  separate_wider_delim(nombres, names = c("primer_nombre", "segundo_nombre"), delim = "-")
+
+info_nombres %>% 
+  separate_longer_delim(nombres, delim = "-")
+```
+
+## separate_*_position()
+```{r}
+info_deptos <- tibble(deptos = c("P3D2", "P4D6", "P4D1"))
+
+info_deptos %>% 
+  separate_wider_position(deptos, widths = c(piso = 2, numero = 2))
+
+info_deptos %>% 
+  separate_longer_position(deptos, width = 2)
+```
+
+## separate_wider_regex()
+```{r}
+#| eval: false
+info_deptos %>%
+separate_wider_regex(deptos, ...)
+```
+[Ver vídeo de expresiones regulares de RladiesChile](https://vimeo.com/rladieschile)
+
+## Mejoras unnest_*(): primero veamos nest()
+
+```{r}
+info_mascota <- tribble(
+  ~mascota,  ~estado,  ~info,
+  "gato", "sano",list(nombre = "isi", edad = 2, vacunas = c("a")),
+  "gato", "enfermo", list(nombre = "oso", edad = 10, vacunas = c("a","b")),
+  "perro","sano",list(nombre = "cuchi", edad = 6, vacunas = c("c"))
+)
+
+info_mascota
+
+```
+
+## Mejoras unnest_*(): primero veamos nest()
+
+```{r}
+info_mascota %>% 
+  unnest()
+```
+
+## Mejoras unnest_*()
+
+```{r}
+info_mascota %>% 
+ unnest_wider(info, names_sep = "_")
+```
+
+
+## Mejoras unnest_*()
+
+```{r}
+info_mascota %>% 
+ unnest_longer(info)
+```
+
+## Pivotear
+
+:::: {.columns}
+
+::: {.column width="45%"}
+* Con el formato long podemos graficar y hacer operaciones por grupos
+* Con el formato wide comparamos columnas
+* [tidyexplain](https://github.com/gadenbuie/tidyexplain)
 
 :::
 
-# Ahora un break antes de seguir
+::: {.column width="55%"}
 
+![](img/pivot_wider_longer.gif)
 
-## Aritméticos
+:::
 
-|  Operador | Operación  |
-|---|---|
-|   `+` | Suma    |
-|   `-` | Resta   |
-|   `*` | Multiplicación    |
-|   `/` | División    |
-|   `^` | Potencia    |
-|  `%%` | División entera |
+::::
 
-
-
-## Relacionales
-
-|  Operador | Operación  |
-|---|---|
-|   `<` | Menor que  |
-|   `<=` | Menor o igual que   |
-|   `>` | Mayor o igual que |
-|   `>=` | División    |
-|   `==` | Exactamente igual que |
-|  `!=` | No es igual que |
-
-
-## Ejemplo uso operadores 
+## pivot_longer()
 ```{r}
-starwars %>% 
-  filter(height > 160) %>% 
-  count()
+mis_gatos <- tibble(nombre = c("cuchito", "minino", 
+                                     "bigotito"),
+                    color = c("negro", "blanco",
+                                "atigrado"),
+                    "personalidad" = c("arisco","amoroso", "amoroso"))
+mis_gatos
 ```
 
+## pivot_longer()
 ```{r}
-starwars %>% 
-  filter(hair_color != "blond") %>% 
-  count()
+mis_gatos %>% 
+  pivot_longer(everything(),
+               names_to = "caracteristicas_gato",
+               values_to = "caracteristica") 
 ```
 
-## Lógicos
-
-|  Operador | Operación  |
-|---|---|
-| x &#x7c; y | x Ó y es verdadero  |
-| x & y | x Y y es verdadero  |
-|   !x | x no es verdadero (negación) |
-|   isTRUE(x) | x es verdadero (afirmación) |
-
+## Mejora pivot_longer()
 ```{r}
-starwars %>% 
-  filter(name == "R2-D2" | name == "C-3PO") %>% 
-  select(name,skin_color,mass) %>% 
-  mutate(es_dorado = ifelse(skin_color=='gold',TRUE,FALSE))
+mis_gatos %>% 
+  pivot_longer(everything(),
+               names_to = "caracteristicas_gato",
+               values_to = "caracteristica",
+               cols_vary = "slowest") 
 ```
 
-## Procesamiento de datos básico
-
-::: {.incremental}
-- Reordenar las variables en una sola columna por tipo
-- Agrupar por tipo de variable
-- Hacer estadistica descriptiva básica
-::: 
-
-## Reordenar las edades
+## nest()
 ```{r}
-library(tidyverse)
+info_mascota
+
+info_mascota %>% 
+  nest()
 
 ```
 
-## Reordenar el resto de la informacion
+## nest()
 ```{r}
-library(tidyverse)
+info_mascota
 
+info_mascota %>% 
+  group_by(mascota) %>% 
+  nest()
 ```
 
-## Se unen los datos
+## Mejora nest: nest(.by)
 ```{r}
+info_mascota %>% 
+  nest(.by = mascota)
 
+info_mascota %>% 
+  nest(.by = estado)
 ```
-
-## Comenzamos con estadistística descriptiva básica: por tipo mascota
-```{r}
-library(tidyverse)
-
-```
-
-## Comenzamos con estadistística descriptiva básica: por asistente a la clase
 
 # [{{< fa brands r-project size=1.4xl >}} Mucha información nueva por hoy :brain: :fire:]{style="color:white;float:right;text-align:right;"} {background-color="#56cc9d"}

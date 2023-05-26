@@ -417,11 +417,9 @@ Sara Acevedo
 <p>En esta taller:</p>
 <div>
 <ul>
-<li class="fragment">Entender que es una variable y una función</li>
-<li class="fragment">Tidyverse como herramienta de procesamiento de datos</li>
-<li class="fragment">Identificar los tipos de datos</li>
-<li class="fragment">Importar datos y procesarlos</li>
-<li class="fragment">Hacer nuestra primer análisis descriptivo</li>
+<li class="fragment">Repasaremos las principales herramientas de tidyr</li>
+<li class="fragment">Revisaremos las funciones más usadas</li>
+<li class="fragment">Revisar los principales cambios</li>
 </ul>
 </div>
 </section>
@@ -441,204 +439,394 @@ Sara Acevedo
 </center>
 </div>
 </section>
-<section id="investiguemos-que-pasó" class="slide level2">
-<h2>Investiguemos que pasó</h2>
-<p>Podemos acceder a documentación:</p>
+<section id="funciones-para-ordenar-datos-tidyr" class="slide level2">
+<h2>Funciones para ordenar datos <code>tidyr::</code></h2>
+<ul>
+<li>Objetivo: datos tidy rectangulares</li>
+<li>Cada variable forma su propia columna</li>
+<li>Cada observación forma una fila</li>
+<li>Y cada celda es un único valor</li>
+</ul>
+</section>
+<section id="funciones-para-ordenar-datos-tidyr-1" class="slide level2">
+<h2>Funciones para ordenar datos <code>tidyr::</code></h2>
+<p><img data-src="img/tidy_data.png" alt="tidy data"> Más info en R4DS <a href="https://r4ds.had.co.nz/tidy-data.html">tidy data</a></p>
+</section>
+<section id="operaciones-de-tidyr" class="slide level2">
+<h2>Operaciones de tidyr</h2>
+<p>Las funciones de tidyr se dividen en cinco categorías principales:</p>
+<ul>
+<li>“Pivotar”, que convierte entre formatos anchos y largos.</li>
+<li>“Rectangling”, que convierte las listas anidadas en tibbles.</li>
+<li>“anidación” que convierte los datos donde cada grupo se convierte en una única fila que contiene un marco de datos anidado</li>
+<li>Dividir y combinar columnas de caracteres</li>
+<li>“missing implicitos”</li>
+</ul>
+</section>
+<section id="como-usar-el-paquete" class="slide level2">
+<h2>Como usar el paquete</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="co">#| eval: false</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="fu">help</span>(mean) <span class="co"># ver documentación</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co">#| eval: false</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="fu">help</span>(mean) <span class="co"># ver documentación</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 <img data-src="img/documentacion_mean.png" class="r-stretch quarto-figure-center"></section>
-<section id="qué-aprendimos-de-esto" class="slide level2">
-<h2>Qué aprendimos de esto?</h2>
-<div class="box">
-<p>Para comenzar con <strong>estadística descriptiva</strong> debemos <span class="fragment highlight-blue" data-fragment-index="1">conocer los datos</span> y al mismo tiempo <span class="fragment highlight-red" data-fragment-index="2">las funciones de R</span>.</p>
-</div>
-</section></section>
-<section>
-<section id="ahora-un-break-antes-de-seguir" class="title-slide slide level1 center">
-<h1>Ahora un break antes de seguir</h1>
-
-</section>
-<section id="aritméticos" class="slide level2">
-<h2>Aritméticos</h2>
-<table>
-<thead>
-<tr class="header">
-<th>Operador</th>
-<th>Operación</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>+</code></td>
-<td>Suma</td>
-</tr>
-<tr class="even">
-<td><code>-</code></td>
-<td>Resta</td>
-</tr>
-<tr class="odd">
-<td><code>*</code></td>
-<td>Multiplicación</td>
-</tr>
-<tr class="even">
-<td><code>/</code></td>
-<td>División</td>
-</tr>
-<tr class="odd">
-<td><code>^</code></td>
-<td>Potencia</td>
-</tr>
-<tr class="even">
-<td><code>%%</code></td>
-<td>División entera</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="relacionales" class="slide level2">
-<h2>Relacionales</h2>
-<table>
-<thead>
-<tr class="header">
-<th>Operador</th>
-<th>Operación</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>&lt;</code></td>
-<td>Menor que</td>
-</tr>
-<tr class="even">
-<td><code>&lt;=</code></td>
-<td>Menor o igual que</td>
-</tr>
-<tr class="odd">
-<td><code>&gt;</code></td>
-<td>Mayor o igual que</td>
-</tr>
-<tr class="even">
-<td><code>&gt;=</code></td>
-<td>División</td>
-</tr>
-<tr class="odd">
-<td><code>==</code></td>
-<td>Exactamente igual que</td>
-</tr>
-<tr class="even">
-<td><code>!=</code></td>
-<td>No es igual que</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="ejemplo-uso-operadores" class="slide level2">
-<h2>Ejemplo uso operadores</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>starwars <span class="sc">%&gt;%</span> </span>
-<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">filter</span>(height <span class="sc">&gt;</span> <span class="dv">160</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">count</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 1
-      n
-  &lt;int&gt;
-1    67</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>starwars <span class="sc">%&gt;%</span> </span>
-<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">filter</span>(hair_color <span class="sc">!=</span> <span class="st">"blond"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">count</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 1
-      n
-  &lt;int&gt;
-1    79</code></pre>
-</div>
-</div>
-</section>
-<section id="lógicos" class="slide level2">
-<h2>Lógicos</h2>
-<table>
-<thead>
-<tr class="header">
-<th>Operador</th>
-<th>Operación</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>x | y</td>
-<td>x Ó y es verdadero</td>
-</tr>
-<tr class="even">
-<td>x &amp; y</td>
-<td>x Y y es verdadero</td>
-</tr>
-<tr class="odd">
-<td>!x</td>
-<td>x no es verdadero (negación)</td>
-</tr>
-<tr class="even">
-<td>isTRUE(x)</td>
-<td>x es verdadero (afirmación)</td>
-</tr>
-</tbody>
-</table>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>starwars <span class="sc">%&gt;%</span> </span>
-<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">filter</span>(name <span class="sc">==</span> <span class="st">"R2-D2"</span> <span class="sc">|</span> name <span class="sc">==</span> <span class="st">"C-3PO"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">select</span>(name,skin_color,mass) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-4"><a href="#cb8-4"></a>  <span class="fu">mutate</span>(<span class="at">es_dorado =</span> <span class="fu">ifelse</span>(skin_color<span class="sc">==</span><span class="st">'gold'</span>,<span class="cn">TRUE</span>,<span class="cn">FALSE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 4
-  name  skin_color   mass es_dorado
-  &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;lgl&gt;    
-1 C-3PO gold           75 TRUE     
-2 R2-D2 white, blue    32 FALSE    </code></pre>
-</div>
-</div>
-</section>
-<section id="procesamiento-de-datos-básico" class="slide level2">
-<h2>Procesamiento de datos básico</h2>
-<div>
+<section id="cosas-nuevas-de-la-versión-1.3" class="slide level2">
+<h2>Cosas nuevas de la versión 1.3</h2>
 <ul>
-<li class="fragment">Reordenar las variables en una sola columna por tipo</li>
-<li class="fragment">Agrupar por tipo de variable</li>
-<li class="fragment">Hacer estadistica descriptiva básica</li>
+<li><p>Una nueva familia de funciones separate_*() sustituye a separate() y extract() e incorpora útiles funciones de debug</p></li>
+<li><p>unnest_wider() y unnest_longer() son mejorados</p></li>
+<li><p>pivot_longer() obtiene un nuevo argumento cols_vary.</p></li>
+<li><p>nest(.by) proporciona una nueva (y esperemos que definitiva) forma de crear conjuntos de datos anidados.</p></li>
 </ul>
-</div>
 </section>
-<section id="reordenar-las-edades" class="slide level2">
-<h2>Reordenar las edades</h2>
+<section id="mejoras-a-separate_" class="slide level2">
+<h2>Mejoras a separate_*()</h2>
+<table>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Crea columnas</th>
+<th>Crea filas</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Separa por delim</td>
+<td>separate_wider_delim()</td>
+<td>separate_longer_delim()</td>
+</tr>
+<tr class="even">
+<td>Separa por posición</td>
+<td>separate_wider_position()</td>
+<td>separate_longer_position()</td>
+</tr>
+<tr class="odd">
+<td>Separa por regex</td>
+<td>separate_wider_regex()</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="separate-clásico" class="slide level2">
+<h2>Separate clásico</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb4-2"><a href="#cb4-2"></a>info_nombres <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">nombres =</span> <span class="fu">c</span>(<span class="st">"maria-jose"</span>, <span class="st">"ema-paz"</span>, <span class="st">"sofia-ester"</span>))</span>
+<span id="cb4-3"><a href="#cb4-3"></a></span>
+<span id="cb4-4"><a href="#cb4-4"></a>info_nombres <span class="sc">%&gt;%</span> </span>
+<span id="cb4-5"><a href="#cb4-5"></a>  <span class="fu">separate</span>(nombres, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"primer_nombre"</span>, <span class="st">"segundo_nombre"</span>), <span class="at">sep =</span> <span class="st">"-"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  primer_nombre segundo_nombre
+  &lt;chr&gt;         &lt;chr&gt;         
+1 maria         jose          
+2 ema           paz           
+3 sofia         ester         </code></pre>
+</div>
 </div>
 </section>
-<section id="reordenar-el-resto-de-la-informacion" class="slide level2">
-<h2>Reordenar el resto de la informacion</h2>
+<section id="separate__delim" class="slide level2">
+<h2>separate_*_delim()</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>info_nombres <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">separate_wider_delim</span>(nombres, <span class="at">names =</span> <span class="fu">c</span>(<span class="st">"primer_nombre"</span>, <span class="st">"segundo_nombre"</span>), <span class="at">delim =</span> <span class="st">"-"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  primer_nombre segundo_nombre
+  &lt;chr&gt;         &lt;chr&gt;         
+1 maria         jose          
+2 ema           paz           
+3 sofia         ester         </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>info_nombres <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">separate_longer_delim</span>(nombres, <span class="at">delim =</span> <span class="st">"-"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 1
+  nombres
+  &lt;chr&gt;  
+1 maria  
+2 jose   
+3 ema    
+4 paz    
+5 sofia  
+6 ester  </code></pre>
+</div>
 </div>
 </section>
-<section id="se-unen-los-datos" class="slide level2">
-<h2>Se unen los datos</h2>
+<section id="separate__position" class="slide level2">
+<h2>separate_*_position()</h2>
 <div class="cell">
-
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>info_deptos <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">deptos =</span> <span class="fu">c</span>(<span class="st">"P3D2"</span>, <span class="st">"P4D6"</span>, <span class="st">"P4D1"</span>))</span>
+<span id="cb10-2"><a href="#cb10-2"></a></span>
+<span id="cb10-3"><a href="#cb10-3"></a>info_deptos <span class="sc">%&gt;%</span> </span>
+<span id="cb10-4"><a href="#cb10-4"></a>  <span class="fu">separate_wider_position</span>(deptos, <span class="at">widths =</span> <span class="fu">c</span>(<span class="at">piso =</span> <span class="dv">2</span>, <span class="at">numero =</span> <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  piso  numero
+  &lt;chr&gt; &lt;chr&gt; 
+1 P3    D2    
+2 P4    D6    
+3 P4    D1    </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>info_deptos <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="#cb12-2"></a>  <span class="fu">separate_longer_position</span>(deptos, <span class="at">width =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 1
+  deptos
+  &lt;chr&gt; 
+1 P3    
+2 D2    
+3 P4    
+4 D6    
+5 P4    
+6 D1    </code></pre>
+</div>
 </div>
 </section>
-<section id="comenzamos-con-estadistística-descriptiva-básica-por-tipo-mascota" class="slide level2">
-<h2>Comenzamos con estadistística descriptiva básica: por tipo mascota</h2>
+<section id="separate_wider_regex" class="slide level2">
+<h2>separate_wider_regex()</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>info_deptos <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="fu">separate_wider_regex</span>(deptos, ...)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><a href="https://vimeo.com/rladieschile">Ver vídeo de expresiones regulares de RladiesChile</a></p>
+</section>
+<section id="mejoras-unnest_-primero-veamos-nest" class="slide level2">
+<h2>Mejoras unnest_*(): primero veamos nest()</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>info_mascota <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb15-2"><a href="#cb15-2"></a>  <span class="sc">~</span>mascota,  <span class="sc">~</span>estado,  <span class="sc">~</span>info,</span>
+<span id="cb15-3"><a href="#cb15-3"></a>  <span class="st">"gato"</span>, <span class="st">"sano"</span>,<span class="fu">list</span>(<span class="at">nombre =</span> <span class="st">"isi"</span>, <span class="at">edad =</span> <span class="dv">2</span>, <span class="at">vacunas =</span> <span class="fu">c</span>(<span class="st">"a"</span>)),</span>
+<span id="cb15-4"><a href="#cb15-4"></a>  <span class="st">"gato"</span>, <span class="st">"enfermo"</span>, <span class="fu">list</span>(<span class="at">nombre =</span> <span class="st">"oso"</span>, <span class="at">edad =</span> <span class="dv">10</span>, <span class="at">vacunas =</span> <span class="fu">c</span>(<span class="st">"a"</span>,<span class="st">"b"</span>)),</span>
+<span id="cb15-5"><a href="#cb15-5"></a>  <span class="st">"perro"</span>,<span class="st">"sano"</span>,<span class="fu">list</span>(<span class="at">nombre =</span> <span class="st">"cuchi"</span>, <span class="at">edad =</span> <span class="dv">6</span>, <span class="at">vacunas =</span> <span class="fu">c</span>(<span class="st">"c"</span>))</span>
+<span id="cb15-6"><a href="#cb15-6"></a>)</span>
+<span id="cb15-7"><a href="#cb15-7"></a></span>
+<span id="cb15-8"><a href="#cb15-8"></a>info_mascota</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  mascota estado  info            
+  &lt;chr&gt;   &lt;chr&gt;   &lt;list&gt;          
+1 gato    sano    &lt;named list [3]&gt;
+2 gato    enfermo &lt;named list [3]&gt;
+3 perro   sano    &lt;named list [3]&gt;</code></pre>
+</div>
 </div>
 </section>
-<section id="comenzamos-con-estadistística-descriptiva-básica-por-asistente-a-la-clase" class="slide level2">
-<h2>Comenzamos con estadistística descriptiva básica: por asistente a la clase</h2>
+<section id="mejoras-unnest_-primero-veamos-nest-1" class="slide level2">
+<h2>Mejoras unnest_*(): primero veamos nest()</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>info_mascota <span class="sc">%&gt;%</span> </span>
+<span id="cb17-2"><a href="#cb17-2"></a>  <span class="fu">unnest</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 3
+  mascota estado  info        
+  &lt;chr&gt;   &lt;chr&gt;   &lt;named list&gt;
+1 gato    sano    &lt;chr [1]&gt;   
+2 gato    sano    &lt;dbl [1]&gt;   
+3 gato    sano    &lt;chr [1]&gt;   
+4 gato    enfermo &lt;chr [1]&gt;   
+5 gato    enfermo &lt;dbl [1]&gt;   
+6 gato    enfermo &lt;chr [2]&gt;   
+7 perro   sano    &lt;chr [1]&gt;   
+8 perro   sano    &lt;dbl [1]&gt;   
+9 perro   sano    &lt;chr [1]&gt;   </code></pre>
+</div>
+</div>
+</section>
+<section id="mejoras-unnest_" class="slide level2">
+<h2>Mejoras unnest_*()</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>info_mascota <span class="sc">%&gt;%</span> </span>
+<span id="cb19-2"><a href="#cb19-2"></a> <span class="fu">unnest_wider</span>(info, <span class="at">names_sep =</span> <span class="st">"_"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 5
+  mascota estado  info_nombre info_edad info_vacunas
+  &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;           &lt;dbl&gt; &lt;list&gt;      
+1 gato    sano    isi                 2 &lt;chr [1]&gt;   
+2 gato    enfermo oso                10 &lt;chr [2]&gt;   
+3 perro   sano    cuchi               6 &lt;chr [1]&gt;   </code></pre>
+</div>
+</div>
+</section>
+<section id="mejoras-unnest_-1" class="slide level2">
+<h2>Mejoras unnest_*()</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>info_mascota <span class="sc">%&gt;%</span> </span>
+<span id="cb21-2"><a href="#cb21-2"></a> <span class="fu">unnest_longer</span>(info)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 4
+  mascota estado  info         info_id
+  &lt;chr&gt;   &lt;chr&gt;   &lt;named list&gt; &lt;chr&gt;  
+1 gato    sano    &lt;chr [1]&gt;    nombre 
+2 gato    sano    &lt;dbl [1]&gt;    edad   
+3 gato    sano    &lt;chr [1]&gt;    vacunas
+4 gato    enfermo &lt;chr [1]&gt;    nombre 
+5 gato    enfermo &lt;dbl [1]&gt;    edad   
+6 gato    enfermo &lt;chr [2]&gt;    vacunas
+7 perro   sano    &lt;chr [1]&gt;    nombre 
+8 perro   sano    &lt;dbl [1]&gt;    edad   
+9 perro   sano    &lt;chr [1]&gt;    vacunas</code></pre>
+</div>
+</div>
+</section>
+<section id="pivotear" class="slide level2">
+<h2>Pivotear</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<ul>
+<li>Con el formato long podemos graficar y hacer operaciones por grupos</li>
+<li>Con el formato wide comparamos columnas</li>
+<li><a href="https://github.com/gadenbuie/tidyexplain">tidyexplain</a></li>
+</ul>
+</div><div class="column" style="width:55%;">
+<p><img data-src="img/pivot_wider_longer.gif"></p>
+</div>
+</div>
+</section>
+<section id="pivot_longer" class="slide level2">
+<h2>pivot_longer()</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>mis_gatos <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">nombre =</span> <span class="fu">c</span>(<span class="st">"cuchito"</span>, <span class="st">"minino"</span>, </span>
+<span id="cb23-2"><a href="#cb23-2"></a>                                     <span class="st">"bigotito"</span>),</span>
+<span id="cb23-3"><a href="#cb23-3"></a>                    <span class="at">color =</span> <span class="fu">c</span>(<span class="st">"negro"</span>, <span class="st">"blanco"</span>,</span>
+<span id="cb23-4"><a href="#cb23-4"></a>                                <span class="st">"atigrado"</span>),</span>
+<span id="cb23-5"><a href="#cb23-5"></a>                    <span class="st">"personalidad"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"arisco"</span>,<span class="st">"amoroso"</span>, <span class="st">"amoroso"</span>))</span>
+<span id="cb23-6"><a href="#cb23-6"></a>mis_gatos</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  nombre   color    personalidad
+  &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;       
+1 cuchito  negro    arisco      
+2 minino   blanco   amoroso     
+3 bigotito atigrado amoroso     </code></pre>
+</div>
+</div>
+</section>
+<section id="pivot_longer-1" class="slide level2">
+<h2>pivot_longer()</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>mis_gatos <span class="sc">%&gt;%</span> </span>
+<span id="cb25-2"><a href="#cb25-2"></a>  <span class="fu">pivot_longer</span>(<span class="fu">everything</span>(),</span>
+<span id="cb25-3"><a href="#cb25-3"></a>               <span class="at">names_to =</span> <span class="st">"caracteristicas_gato"</span>,</span>
+<span id="cb25-4"><a href="#cb25-4"></a>               <span class="at">values_to =</span> <span class="st">"caracteristica"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 2
+  caracteristicas_gato caracteristica
+  &lt;chr&gt;                &lt;chr&gt;         
+1 nombre               cuchito       
+2 color                negro         
+3 personalidad         arisco        
+4 nombre               minino        
+5 color                blanco        
+6 personalidad         amoroso       
+7 nombre               bigotito      
+8 color                atigrado      
+9 personalidad         amoroso       </code></pre>
+</div>
+</div>
+</section>
+<section id="mejora-pivot_longer" class="slide level2">
+<h2>Mejora pivot_longer()</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>mis_gatos <span class="sc">%&gt;%</span> </span>
+<span id="cb27-2"><a href="#cb27-2"></a>  <span class="fu">pivot_longer</span>(<span class="fu">everything</span>(),</span>
+<span id="cb27-3"><a href="#cb27-3"></a>               <span class="at">names_to =</span> <span class="st">"caracteristicas_gato"</span>,</span>
+<span id="cb27-4"><a href="#cb27-4"></a>               <span class="at">values_to =</span> <span class="st">"caracteristica"</span>,</span>
+<span id="cb27-5"><a href="#cb27-5"></a>               <span class="at">cols_vary =</span> <span class="st">"slowest"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 2
+  caracteristicas_gato caracteristica
+  &lt;chr&gt;                &lt;chr&gt;         
+1 nombre               cuchito       
+2 nombre               minino        
+3 nombre               bigotito      
+4 color                negro         
+5 color                blanco        
+6 color                atigrado      
+7 personalidad         arisco        
+8 personalidad         amoroso       
+9 personalidad         amoroso       </code></pre>
+</div>
+</div>
+</section>
+<section id="nest" class="slide level2">
+<h2>nest()</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>info_mascota</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  mascota estado  info            
+  &lt;chr&gt;   &lt;chr&gt;   &lt;list&gt;          
+1 gato    sano    &lt;named list [3]&gt;
+2 gato    enfermo &lt;named list [3]&gt;
+3 perro   sano    &lt;named list [3]&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>info_mascota <span class="sc">%&gt;%</span> </span>
+<span id="cb31-2"><a href="#cb31-2"></a>  <span class="fu">nest</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  data            
+  &lt;list&gt;          
+1 &lt;tibble [3 × 3]&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="nest-1" class="slide level2">
+<h2>nest()</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>info_mascota</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  mascota estado  info            
+  &lt;chr&gt;   &lt;chr&gt;   &lt;list&gt;          
+1 gato    sano    &lt;named list [3]&gt;
+2 gato    enfermo &lt;named list [3]&gt;
+3 perro   sano    &lt;named list [3]&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>info_mascota <span class="sc">%&gt;%</span> </span>
+<span id="cb35-2"><a href="#cb35-2"></a>  <span class="fu">group_by</span>(mascota) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-3"><a href="#cb35-3"></a>  <span class="fu">nest</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+# Groups:   mascota [2]
+  mascota data            
+  &lt;chr&gt;   &lt;list&gt;          
+1 gato    &lt;tibble [2 × 2]&gt;
+2 perro   &lt;tibble [1 × 2]&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="mejora-nest-nest.by" class="slide level2">
+<h2>Mejora nest: nest(.by)</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>info_mascota <span class="sc">%&gt;%</span> </span>
+<span id="cb37-2"><a href="#cb37-2"></a>  <span class="fu">nest</span>(<span class="at">.by =</span> mascota)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  mascota data            
+  &lt;chr&gt;   &lt;list&gt;          
+1 gato    &lt;tibble [2 × 2]&gt;
+2 perro   &lt;tibble [1 × 2]&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>info_mascota <span class="sc">%&gt;%</span> </span>
+<span id="cb39-2"><a href="#cb39-2"></a>  <span class="fu">nest</span>(<span class="at">.by =</span> estado)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  estado  data            
+  &lt;chr&gt;   &lt;list&gt;          
+1 sano    &lt;tibble [2 × 2]&gt;
+2 enfermo &lt;tibble [1 × 2]&gt;</code></pre>
+</div>
+</div>
 </section></section>
 <section id="fa-brands-r-project-size1.4xl-mucha-información-nueva-por-hoy" class="title-slide slide level1 center" data-background-color="#56cc9d">
 <h1><span style="color:white;float:right;text-align:right;"> Mucha información nueva por hoy <span class="emoji" data-emoji="brain">🧠</span> <span class="emoji" data-emoji="fire">🔥</span></span></h1>
