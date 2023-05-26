@@ -32,11 +32,10 @@ execute:
 En esta taller:
 
 ::: {.incremental}
--   Entender que es una variable y una función
--   Tidyverse como herramienta de procesamiento de datos
+-   Repasaremos las principales herramientas de tidyr
+-   Conceptos como pivot
 -   Identificar los tipos de datos
--   Importar datos y procesarlos
--   Hacer nuestra primer análisis descriptivo
+
 ::: 
 
 ---
