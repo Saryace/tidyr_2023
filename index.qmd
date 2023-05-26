@@ -110,7 +110,6 @@ help(mean) # ver documentación
 |Separa por posición | separate_wider_position()   |separate_longer_position()|
 |Separa por regex  | separate_wider_regex() | |
 
-
 ## Separate clásico
 ```{r}
 library(tidyverse)
