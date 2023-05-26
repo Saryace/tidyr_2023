@@ -11,6 +11,7 @@ format:
     slide-number: true
     theme: default
 from: markdown+emoji
+output-dir: docs
 execute:
   echo: true
 ---
