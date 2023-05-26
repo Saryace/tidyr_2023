@@ -1,0 +1,171 @@
+---
+title: "Novedades en {tidyr} 2023"
+subtitle: "R-Ladies Chile"
+author: "Sara Acevedo"
+title-slide-attributes:
+    data-background-image: "img/mint-tea.jpeg"
+    data-background-size: contain
+    data-background-opacity: "0.5"
+format:
+  revealjs: 
+    slide-number: true
+    theme: default
+from: markdown+emoji
+execute:
+  echo: true
+---
+
+# [Hola!]{style="color: white;float:center;text-align:left;"} {background-color="#56cc9d"} 
+
+{{< fa brands twitter size=1.4xl >}} saryace | {{< fa brands github size=1.4xl >}} Saryace | {{< fa globe size=1.4xl >}} saryace.github.io
+
+::: {.incremental}
+
+- Sara Acevedo
+- Doctora Cs. Ingeniería UC, Magíster UC-Davis
+- Usuaria de R hace años :woman_technologist:
+
+:::
+
+## Taller de tidyr
+
+En esta taller:
+
+::: {.incremental}
+-   Entender que es una variable y una función
+-   Tidyverse como herramienta de procesamiento de datos
+-   Identificar los tipos de datos
+-   Importar datos y procesarlos
+-   Hacer nuestra primer análisis descriptivo
+::: 
+
+---
+
+## Código y materiales
+
+Las presentaciones contienen código real (se puede copiar y pegar directamente). El repositorio contendrá el material y contenido de cada clase
+
+```{r}
+1 + 1 # copia y pega en la consola
+```
+::: info-box
+
+El repositorio lo puedes encontrar acá:
+
+<center>
+<i class="fa-solid fa-book"></i> [Repositorio en github](https://github.com/Saryace/tidyr_2023)
+</center>
+
+:::
+
+## Investiguemos que pasó
+
+Podemos acceder a documentación:
+
+```{r}
+library(tidyverse)
+#| eval: false
+help(mean) # ver documentación
+```
+
+![](img/documentacion_mean.png){fig-align="center"}
+
+## Qué aprendimos de esto?
+
+::: box
+
+Para comenzar con **estadística descriptiva** debemos <span class="fragment highlight-blue" fragment-index=1>conocer los datos</span> y al mismo tiempo <span class="fragment highlight-red" fragment-index=2>las funciones de R</span>. 
+
+:::
+
+# Ahora un break antes de seguir
+
+
+## Aritméticos
+
+|  Operador | Operación  |
+|---|---|
+|   `+` | Suma    |
+|   `-` | Resta   |
+|   `*` | Multiplicación    |
+|   `/` | División    |
+|   `^` | Potencia    |
+|  `%%` | División entera |
+
+
+
+## Relacionales
+
+|  Operador | Operación  |
+|---|---|
+|   `<` | Menor que  |
+|   `<=` | Menor o igual que   |
+|   `>` | Mayor o igual que |
+|   `>=` | División    |
+|   `==` | Exactamente igual que |
+|  `!=` | No es igual que |
+
+
+## Ejemplo uso operadores 
+```{r}
+starwars %>% 
+  filter(height > 160) %>% 
+  count()
+```
+
+```{r}
+starwars %>% 
+  filter(hair_color != "blond") %>% 
+  count()
+```
+
+## Lógicos
+
+|  Operador | Operación  |
+|---|---|
+| x &#x7c; y | x Ó y es verdadero  |
+| x & y | x Y y es verdadero  |
+|   !x | x no es verdadero (negación) |
+|   isTRUE(x) | x es verdadero (afirmación) |
+
+```{r}
+starwars %>% 
+  filter(name == "R2-D2" | name == "C-3PO") %>% 
+  select(name,skin_color,mass) %>% 
+  mutate(es_dorado = ifelse(skin_color=='gold',TRUE,FALSE))
+```
+
+## Procesamiento de datos básico
+
+::: {.incremental}
+- Reordenar las variables en una sola columna por tipo
+- Agrupar por tipo de variable
+- Hacer estadistica descriptiva básica
+::: 
+
+## Reordenar las edades
+```{r}
+library(tidyverse)
+
+```
+
+## Reordenar el resto de la informacion
+```{r}
+library(tidyverse)
+
+```
+
+## Se unen los datos
+```{r}
+
+```
+
+## Comenzamos con estadistística descriptiva básica: por tipo mascota
+```{r}
+library(tidyverse)
+
+```
+
+## Comenzamos con estadistística descriptiva básica: por asistente a la clase
+
+# [{{< fa brands r-project size=1.4xl >}} Mucha información nueva por hoy :brain: :fire:]{style="color:white;float:right;text-align:right;"} {background-color="#56cc9d"}
